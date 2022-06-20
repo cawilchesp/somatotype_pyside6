@@ -1,6 +1,6 @@
-## Binaries for Romberg's Test V 1.0
+## Somatotype V 1.0
 
-Romberg's Test is an application for analysis of patient's balance.
+Somatotype is an application for analysis of patient's anthropometric body type.
 
 Copyright ©️ 2022 Carlos Wilches
  
