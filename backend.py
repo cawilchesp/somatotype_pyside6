@@ -3,10 +3,10 @@ Backend
 
 This file contains supplementary methods and classes applied to the frontend.
 
-1. Class MPLCanvas: configuration of the plot canvas
-2. Analysis methods: methods to process and analyze anthropometric measurements
-3. Database methods: methods of the database operations
-4. About class and method: Dialogs of information about me and Qt
+
+1. Analysis methods: methods to process and analyze anthropometric measurements
+2. Database methods: methods of the database operations
+3. About class and method: Dialog of information about Qt
 
 """
 
@@ -18,50 +18,26 @@ import numpy as np
 import pandas as pd
 import psycopg2
 
-from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
-from matplotlib.figure import Figure
 
-import material3_components as mt3
+# -------------------------
+# Convert height ft.in to m
+# -------------------------
+def ftin2m(height_ft: float, height_in: float) -> float:
+    return ((height_ft * 12) + height_in) * 2.54 / 100
+    
 
-light = {
-    'surface': '#B2B2B2',
-    'on_surface': '#000000'
-}
+# -----------------------
+# Convert weight Lb to Kg
+# -----------------------
+def lb2kg(weight_lb: float) -> float:
+    return weight_lb * 0.454
 
-dark = {
-    'surface': '#2E3441',
-    'on_surface': '#E5E9F0'
-}
 
-class MPLCanvas(FigureCanvasQTAgg):
-    def __init__(self, parent, theme: bool) -> None:
-        """ Canvas settings for plotting signals """
-        self.fig = Figure()
-        self.axes = self.fig.add_subplot(111)
-
-        FigureCanvasQTAgg.__init__(self, self.fig)
-        self.setParent(parent)
-
-        self.apply_styleSheet(theme)
-
-    def apply_styleSheet(self, theme):
-        self.fig.subplots_adjust(left=0.05, bottom=0.15, right=1, top=0.95, wspace=0, hspace=0)
-        self.axes.spines['top'].set_visible(False)
-        self.axes.spines['right'].set_visible(False)
-        self.axes.spines['bottom'].set_visible(False)
-        self.axes.spines['left'].set_visible(False)
-        if theme:
-            self.fig.set_facecolor(f'{light["surface"]}')
-            self.axes.set_facecolor(f'{light["surface"]}')
-            self.axes.xaxis.label.set_color(f'{light["on_surface"]}')
-            self.axes.yaxis.label.set_color(f'{light["on_surface"]}')
-            self.axes.tick_params(axis='both', colors=f'{light["on_surface"]}', labelsize=8)
-        else:
-            self.fig.set_facecolor(f'{dark["surface"]}')
-            self.axes.set_facecolor(f'{dark["surface"]}')
-            self.axes.xaxis.label.set_color(f'{dark["on_surface"]}')
-            self.axes.yaxis.label.set_color(f'{dark["on_surface"]}')
-            self.axes.tick_params(axis='both', colors=f'{dark["on_surface"]}', labelsize=8)
+# ---------------
+# BMI Calculation
+# ---------------
+def bmi(weight_kg: float, height_m: float) -> float:
+    return weight_kg / (height_m * height_m)
 
 
 # ---------------------------
@@ -472,105 +448,6 @@ def delete_db(db_table: str, data: str) -> list:
 
     return table_data
 
-
-# ----------------
-# About App Dialog
-# ----------------
-class AboutApp(QtWidgets.QDialog):
-    def __init__(self) -> None:
-        """ About Me Dialog """
-        super().__init__()
-        # --------
-        # Settings
-        # --------
-        self.settings = QSettings(f'{sys.path[0]}/settings.ini', QSettings.Format.IniFormat)
-        self.language_value = int(self.settings.value('language'))
-        self.theme_value = eval(self.settings.value('theme'))
-
-        # ----------------
-        # Generación de UI
-        # ----------------
-        width = 320
-        height = 408
-        screen_x = int(self.screen().availableGeometry().width() / 2 - (width / 2))
-        screen_y = int(self.screen().availableGeometry().height() / 2 - (height / 2))
-
-        if self.language_value == 0:
-            self.setWindowTitle('Acerca de...')
-        elif self.language_value == 1:
-            self.setWindowTitle('About...')
-        self.setGeometry(screen_x, screen_y, width, height)
-        self.setMinimumSize(width, height)
-        self.setMaximumSize(width, height)
-        self.setModal(True)
-        self.setObjectName('object_about')
-        if self.theme_value:
-            self.setStyleSheet(f'QWidget#object_about {{ background-color: #E5E9F0;'
-                f'color: #000000 }}')
-        else:
-            self.setStyleSheet(f'QWidget#object_about {{ background-color: #3B4253;'
-                f'color: #E5E9F0 }}')
-
-
-        self.about_card = mt3.Card(self, 'about_card',
-            (8, 8, width-16, height-16), ('Somatotipo', 'Somatotype'), 
-            self.theme_value, self.language_value)
-
-        y, w = 48, width - 32
-        mt3.FieldLabel(self.about_card, 'version_label',
-            (8, y), ('Versión: 1.0', 'Version: 1.0'), self.theme_value, self.language_value)
-
-        y += 48
-        mt3.FieldLabel(self.about_card, 'desarrollado_label',
-            (8, y), ('Desarrollado por:', 'Developed by:'), self.theme_value, self.language_value)
-
-        y += 48
-        mt3.IconLabel(self.about_card, 'nombre_icon',
-            (8, y), 'person', self.theme_value)
-
-        y += 6
-        mt3.FieldLabel(self.about_card, 'nombre_label',
-            (48, y), ('Carlos Andrés Wilches Pérez', 'Carlos Andrés Wilches Pérez'), self.theme_value, self.language_value)
-
-        y += 30
-        mt3.IconLabel(self.about_card, 'profesion_icon',
-            (8, y), 'school', self.theme_value)
-        
-        y += 6
-        mt3.FieldLabel(self.about_card, 'profesion_label',
-            (48, y), ('Ingeniero Electrónico, BSc. MSc. PhD.', 'Electronic Engineer, BSc. MSc. PhD.'), self.theme_value, self.language_value)
-        
-        y += 24
-        mt3.FieldLabel(self.about_card, 'profesion_label',
-            (48, y), ('Universidad Nacional de Colombia', 'Universidad Nacional de Colombia'), self.theme_value, self.language_value)
-
-        y += 32
-        mt3.FieldLabel(self.about_card, 'profesion_label',
-            (48, y), ('Maestría en Ingeniería Electrónica', 'Master in Electronic Engineering'), self.theme_value, self.language_value)
-
-        y += 24
-        mt3.FieldLabel(self.about_card, 'profesion_label',
-            (48, y), ('Doctor en Ingeniería', 'Doctor in Engineering'), self.theme_value, self.language_value)
-
-        y += 24
-        mt3.FieldLabel(self.about_card, 'profesion_label',
-            (48, y), ('Pontificia Universidad Javeriana', 'Pontificia Universidad Javeriana'), self.theme_value, self.language_value)
-
-        y += 24
-        mt3.IconLabel(self.about_card, 'email_icon',
-            (8, y), 'mail', self.theme_value)
-
-        y += 6
-        mt3.FieldLabel(self.about_card, 'email_label',
-            (48, y), ('cawilchesp@outlook.com', 'cawilchesp@outlook.com'), self.theme_value, self.language_value)
-
-        y += 32
-        self.aceptar_button = mt3.TextButton(self.about_card, 'aceptar_button',
-            (w-92, y, 100), ('Aceptar', 'Ok'), 'done.png', self.theme_value, self.language_value)
-        self.aceptar_button.clicked.connect(self.on_aceptar_button_clicked)
-
-    def on_aceptar_button_clicked(self):
-        self.close()
 
 # ---------------
 # About Qt Dialog
