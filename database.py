@@ -18,7 +18,7 @@ from PyQt6.QtGui import QRegularExpressionValidator
 
 import sys
 
-import material3_components as mt3
+
 
 
 class Database(QtWidgets.QDialog):
