@@ -86,12 +86,12 @@ class MD3Slider(QtWidgets.QSlider):
 
         if theme:
             background_color = light["surface"]
-            groove_color = light["on_surface"]
+            groove_color = '#E7E7E7'
             color = light["primary"]
             disabled_color = light["disable"]
         else:
             background_color = dark["surface"]
-            groove_color = dark["on_surface"]
+            groove_color = '#494949'
             color = dark["primary"]
             disabled_color = dark["disable"]
 
