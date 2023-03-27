@@ -1,44 +1,12 @@
 """
-PyQt Slider component adapted to follow Material Design 3 guidelines
+PySide6 Slider component adapted to follow Material Design 3 guidelines
 
 """
 
-from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtCore import Qt
+from PySide6 import QtWidgets
+from PySide6.QtCore import Qt
 
-import sys
-
-
-light = {
-    'background': '#E5E9F0',
-    'on_background': '#000000',
-    'surface': '#FFFFFF',
-    'on_surface': '#000000',
-    'primary': '#3785F5',
-    'on_primary': '#000000',
-    'secondary': '#7FB0F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': '#B3261E',
-    'on_error': '#FFB4AB'
-}
-
-dark = {
-    'background': '#3B4253',
-    'on_background': '#E5E9F0',
-    'surface': '#2E3441',
-    'on_surface': '#E5E9F0',
-    'primary': '#7FB0F5',
-    'on_primary': '#000000',
-    'secondary': '#3785F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': 'B3261E',
-    'on_error': '#FFB4AB'
-}
-
+from components.style_color import colors
 
 # ------
 # Slider
@@ -49,14 +17,27 @@ class MD3Slider(QtWidgets.QSlider):
 
         Parameters
         ----------
-        name: str
-            Widget name
-        geometry: tuple
-            Slider position and width
-            (x, y, w) -> x, y: upper left corner, w: width
-        theme: bool
-            App theme
-            True: Light theme, False: Dark theme
+        attributes: dict
+            name: str
+                Widget name
+            position: tuple
+                Button position
+                (x, y) -> x, y: upper left corner
+            width: int
+                Button width
+            range: tuple
+                Slider range (min, step, max)
+            value: int
+                Slider current value
+            enabled: bool
+                Slider enabled / disabled
+            theme: bool
+                App theme
+                True: Light theme, False: Dark theme
+            slider_moved: def
+                Slider 'moved' method name
+            slider_released: def
+                Slider 'released' method name
         
         Returns
         -------
@@ -65,6 +46,7 @@ class MD3Slider(QtWidgets.QSlider):
         super(MD3Slider, self).__init__(parent)
 
         self.attributes = attributes
+        self.parent = parent
 
         self.name = attributes['name']
         self.setObjectName(self.name)
@@ -74,27 +56,31 @@ class MD3Slider(QtWidgets.QSlider):
         self.setGeometry(x, y, w, 32)
 
         self.setOrientation(Qt.Orientation.Horizontal)
-        self.setMinimum(0)
-        self.setMaximum(2)
-        self.setSingleStep(1)
+        self.setMinimum(attributes['range'][0])
+        self.setSingleStep(attributes['range'][1])
+        self.setMaximum(attributes['range'][2])
 
-        self.apply_styleSheet(attributes['theme'])
+        self.setValue(attributes['value'])
+        self.setEnabled(attributes['enabled']) if 'enabled' in attributes else True
+        
+        self.setThemeStyle(attributes['theme'])
+
+        if 'slider_moved' in attributes:
+            self.sliderMoved.connect(attributes['slider_moved'])
+        if 'slider_released' in attributes:
+            self.sliderReleased.connect(attributes['slider_released'])
 
 
-    def apply_styleSheet(self, theme: bool) -> None:
+    def setThemeStyle(self, theme: bool) -> None:
         """ Apply theme style sheet to component """
 
-        if theme:
-            background_color = light["surface"]
-            groove_color = '#E7E7E7'
-            color = light["primary"]
-            disabled_color = light["disable"]
-        else:
-            background_color = dark["surface"]
-            groove_color = '#494949'
-            color = dark["primary"]
-            disabled_color = dark["disable"]
-
+        if self.parent.attributes['type'] == 'filled':
+            background_color = colors(theme, 'surface_tint')
+        elif self.parent.attributes['type'] == 'outlined':
+            background_color = colors(theme, 'background')
+        color = colors(theme, 'primary')
+        disabled_color = colors(theme, 'on_disable')
+        groove_color = '#494949'
 
         self.setStyleSheet(f'QSlider#{self.name} {{ '
                 f'background-color: {background_color} }}'
