@@ -1,50 +1,20 @@
 """
-PyQt Divider component adapted to follow Material Design 3 guidelines
+PySide6 Divider component adapted to follow Material Design 3 guidelines
 
 """
 
-from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtCore import Qt
+from PySide6 import QtWidgets
+
+from components.style_color import colors
 
 import sys
-
-
-light = {
-    'background': '#E5E9F0',
-    'on_background': '#000000',
-    'surface': '#FFFFFF',
-    'on_surface': '#000000',
-    'primary': '#3785F5',
-    'on_primary': '#000000',
-    'secondary': '#7FB0F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': '#B3261E',
-    'on_error': '#FFB4AB'
-}
-
-dark = {
-    'background': '#3B4253',
-    'on_background': '#E5E9F0',
-    'surface': '#2E3441',
-    'on_surface': '#E5E9F0',
-    'primary': '#7FB0F5',
-    'on_primary': '#000000',
-    'secondary': '#3785F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': 'B3261E',
-    'on_error': '#FFB4AB'
-}
 
 # -------
 # Divider
 # -------
 class MD3Divider(QtWidgets.QFrame):
     def __init__(self, parent, attributes: dict) -> None:
-        """ Material Design 3 Component: Common Buttons
+        """ Material Design 3 Component: Divider
 
         Parameters
         ----------
@@ -52,10 +22,10 @@ class MD3Divider(QtWidgets.QFrame):
             name: str
                 Widget name
             position: tuple
-                Card position
+                Divider position
                 (x, y) -> x, y: upper left corner
             size: tuple
-                Card size
+                Divider size
                 (w, h) -> w: width, h: height
             theme: bool
                 App theme
@@ -68,6 +38,7 @@ class MD3Divider(QtWidgets.QFrame):
         super(MD3Divider, self).__init__(parent)
 
         self.attributes = attributes
+        self.parent = parent
 
         self.name = attributes['name']
         self.setObjectName(self.name)
@@ -75,30 +46,29 @@ class MD3Divider(QtWidgets.QFrame):
         x, y = attributes['position'] if 'position' in attributes else (8,8)
         if attributes['shape'] == 'horizontal':
             w = attributes['length'] if 'length' in attributes else 32
-            h = 8
+            h = 1
             self.setFrameShape(QtWidgets.QFrame.Shape.HLine)
         elif attributes['shape'] == 'vertical':
-            w = 8
+            w = 1
             h = attributes['length'] if 'length' in attributes else 32
             self.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         self.setGeometry(x, y, w, h)
 
         self.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
 
-        self.apply_styleSheet(attributes['theme'])
+        self.setThemeStyle(attributes['theme'])
 
 
-    def apply_styleSheet(self, theme: bool) -> None:
+    def setThemeStyle(self, theme: bool) -> None:
         """ Apply theme style sheet to component """
-        if theme:
-            background_color = light["surface"]
-        else:
-            background_color = dark["surface"]
+        
+        if self.parent.attributes['type'] == 'filled':
+            background_color = colors(theme, 'surface_tint')
+        elif self.parent.attributes['type'] == 'outlined':
+            background_color = colors(theme, 'background')
+        border_color = colors(theme, 'outline')
             
         self.setStyleSheet(f'QFrame#{self.name} {{ '
+                f'border: 1px solid {border_color};'
                 f'background-color: {background_color};'
                 f'}}' )
-
-
-    def language_text(self, language: int) -> None:
-        return 0
