@@ -1,46 +1,13 @@
 """
-PyQt Button component adapted to follow Material Design 3 guidelines
+PySide6 Button component adapted to follow Material Design 3 guidelines
 
 """
 
-from PyQt6 import QtGui, QtWidgets, QtCore
-from PyQt6.QtCore import Qt
+from PySide6 import QtGui, QtWidgets
+
+from components.style_color import colors
 
 import sys
-
-
-light = {
-    'background': '#E5E9F0',
-    'on_background': '#000000',
-    'surface': '#FFFFFF',
-    'on_surface': '#000000',
-    'primary': '#3785F5',
-    'on_primary': '#000000',
-    'secondary': '#7FB0F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': '#B3261E',
-    'on_error': '#FFB4AB'
-}
-
-dark = {
-    'background': '#3B4253',
-    'on_background': '#E5E9F0',
-    'surface': '#2E3441',
-    'on_surface': '#E5E9F0',
-    'primary': '#7FB0F5',
-    'on_primary': '#000000',
-    'secondary': '#3785F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': 'B3261E',
-    'on_error': '#FFB4AB'
-}
-
-current_path = sys.path[0].replace("\\","/")
-images_path = f'{current_path}/icons'
 
 # --------------
 # Common Buttons
@@ -57,22 +24,26 @@ class MD3Button(QtWidgets.QPushButton):
             position: tuple
                 Button position
                 (x, y) -> x, y: upper left corner
-            width: tuple
+            width: int
                 Button width
             type: str
                 Button type
                 'elevated', 'filled', 'tonal', 'outlined', 'text'
-            icon: str
+            icon: str (Optional)
                 Icon file without extension ('icon')
             labels: tuple
-                Item label text ('item', 'field')
+                Item label text
                 (label_es, label_en) -> label_es: label in spanish, label_en: label in english
+            enabled: bool
+                Button enabled / disabled
             theme: bool
-                App theme ('item', 'value', 'icon', 'field')
+                App theme
                 True: Light theme, False: Dark theme
             language: int
-                App language ('item', 'field')
+                App language
                 0: Spanish, 1: English
+            clicked: def
+                Button 'clicked' method name
         
         Returns
         -------
@@ -81,6 +52,7 @@ class MD3Button(QtWidgets.QPushButton):
         super(MD3Button, self).__init__(parent)
 
         self.attributes = attributes
+        self.parent = parent
 
         self.name = attributes['name']
         self.setObjectName(self.name)
@@ -89,68 +61,61 @@ class MD3Button(QtWidgets.QPushButton):
         w = attributes['width'] if 'width' in attributes else 32
         self.setGeometry(x, y, w, 32)
 
-        if 'icon' in attributes:
-            self.setIcon(QtGui.QIcon(f'{images_path}/{attributes["icon"]}'))
+        self.setEnabled(attributes['enabled']) if 'enabled' in attributes else True
 
-        self.apply_styleSheet(attributes['theme'])
-            
-        if 'labels' in attributes:
-            self.language_text(attributes['language'])
+        self.setThemeStyle(attributes['theme'])
+        self.setLanguage(attributes['language'])
+
+        self.clicked.connect(attributes['clicked'])
 
 
-    def apply_styleSheet(self, theme: bool) -> None:
+    def setThemeStyle(self, theme: bool) -> None:
         """ Apply theme style sheet to component """
 
-        if self.attributes['type'] == 'elevated':
-            thickness = 1
-            background_color = light["surface"] if theme else dark["surface"]
-            color = light["on_surface"] if theme else dark["on_surface"]
-            hover_background_color = light["primary"] if theme else dark["primary"]
-            hover_color = light["on_surface"] if theme else dark["on_surface"]
-        elif self.attributes['type'] == 'filled':
-            thickness = 0
-            background_color = light["primary"] if theme else dark["primary"]
-            color = light["on_primary"] if theme else dark["on_primary"]
-            hover_background_color = light["secondary"] if theme else dark["secondary"]
-            hover_color = light["on_primary"] if theme else dark["on_primary"]
+        if self.attributes['type'] == 'filled':
+            background_color = colors(theme, 'primary')
+            text_color = colors(theme, 'on_primary')
         elif self.attributes['type'] == 'tonal':
-            thickness = 0
-            background_color = light["secondary"] if theme else dark["secondary"]
-            color = light["on_secondary"] if theme else dark["on_secondary"]
-            hover_background_color = light["primary"] if theme else dark["primary"]
-            hover_color = light["on_secondary"] if theme else dark["on_secondary"]
-        elif self.attributes['type'] == 'outlined':
-            thickness = 1
-            background_color = light["surface"] if theme else dark["surface"]
-            color = light["primary"] if theme else dark["primary"]
-            hover_background_color = light["secondary"] if theme else dark["secondary"]
-            hover_color = light["on_surface"] if theme else dark["on_surface"]
-        elif self.attributes['type'] == 'text':
-            thickness = 0
-            background_color = light["surface"] if theme else dark["surface"]
-            color = light["primary"] if theme else dark["primary"]
-            hover_background_color = light["secondary"] if theme else dark["secondary"]
-            hover_color = light["on_secondary"] if theme else dark["on_secondary"]
+            background_color = colors(theme, 'secondary')
+            text_color = colors(theme, 'on_secondary')
+        elif self.attributes['type'] in ('outlined', 'text'):
+            if self.parent.attributes['type'] == 'filled':
+                background_color = colors(theme, 'surface_tint')
+            elif self.parent.attributes['type'] == 'outlined':
+                background_color = colors(theme, 'background')
+            text_color = colors(theme, 'primary')
+        
+        hover_background_color = colors(theme, 'hover')
+        hover_text_color = colors(theme, 'on_primary')
+        disabled_background_color = colors(theme, 'disable')
+        disabled_text_color = colors(theme, 'on_disable')
 
-        disabled_color = light["on_disable"] if theme else dark["disable"]
+        thickness = 2 if self.attributes['type'] == 'outlined' else 0
+        border_color = colors(theme, 'outline') if self.attributes['type'] == 'outlined' else None
+
+        if 'icon' in self.attributes:
+            icon_theme = 'L' if theme else 'D'
+            current_path = sys.path[0].replace("\\","/")
+            images_path = f'{current_path}/icons'
+            self.setIcon(QtGui.QIcon(f'{images_path}/{self.attributes["icon"]}_{icon_theme}.png'))
 
         self.setStyleSheet(f'QPushButton#{self.name} {{ '
-                f'border: {thickness}px solid;'
+                f'border: {thickness}px solid {border_color};'
                 f'border-radius: 16;'
                 f'background-color: {background_color};'
-                f'color: {color};'
+                f'color: {text_color};'
                 f'}}'
                 f'QPushButton#{self.name}:hover {{ '
                 f'background-color: {hover_background_color};'
-                f'color: {hover_color};'
+                f'color: {hover_text_color};'
                 f'}}'
                 f'QPushButton#{self.name}:!enabled {{ '
-                f'color: {disabled_color}'
+                f'background-color: {disabled_background_color};'
+                f'color: {disabled_text_color}'
                 f'}}')
               
 
-    def language_text(self, language: int) -> None:
+    def setLanguage(self, language: int) -> None:
         """ Change language of title text """
-        if 'labels' in self.attributes:
-            if language == 0:   self.setText(self.attributes['labels'][0])
-            elif language == 1: self.setText(self.attributes['labels'][1])
+        if language == 0:   self.setText(self.attributes['labels'][0])
+        elif language == 1: self.setText(self.attributes['labels'][1])
