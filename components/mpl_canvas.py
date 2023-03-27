@@ -7,70 +7,47 @@ Matplotlib canvas component for plotting signals
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
+from components.style_color import colors
 
-light = {
-    'background': '#3785F5',
-    'on_background': '#000000',
-    'surface': '#FFFFFF',
-    'on_surface': '#000000',
-    'primary': '#3785F5',
-    'on_primary': '#000000',
-    'secondary': '#7FB0F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': '#B3261E',
-    'on_error': '#FFB4AB'
-}
-
-dark = {
-    'background': '#3B4253',
-    'on_background': '#E5E9F0',
-    'surface': '#2E3441',
-    'on_surface': '#E5E9F0',
-    'primary': '#7FB0F5',
-    'on_primary': '#000000',
-    'secondary': '#3785F5',
-    'on_secondary': '#000000',
-    'disable': '#B2B2B2',
-    'on_disable': '#000000',
-    'error': 'B3261E',
-    'on_error': '#FFB4AB'
-}
-
-
+# -----------------
+# MatPlotLib Canvas
+# -----------------
 class MPLCanvas(FigureCanvasQTAgg):
-    def __init__(self, parent, theme: bool) -> None:
+    def __init__(self, parent, attributes: dict) -> None:
         """ Canvas settings for plotting signals """
-        self.fig = Figure()
+
+        self.attributes = attributes
+        self.parent = parent
+
+        self.fig = Figure(constrained_layout=True)
         self.axes = self.fig.add_subplot(111)
 
         FigureCanvasQTAgg.__init__(self, self.fig)
         self.setParent(parent)
 
-        self.apply_styleSheet(theme)
+        x, y = attributes['position'] if 'position' in attributes else (8,8)
+        w, h = attributes['size'] if 'size' in attributes else (96, 96)
+        self.setGeometry(x, y, w, h)
+        
+        self.setThemeStyle(attributes['theme'])
 
-    def apply_styleSheet(self, theme):
-        self.fig.subplots_adjust(left=0.05, bottom=0.15, right=1, top=0.95, wspace=0, hspace=0)
+
+    def setThemeStyle(self, theme):
+        """ Apply theme style sheet to component """
+
+        if self.parent.attributes['type'] == 'filled':
+            background_color = colors(theme, 'surface_tint')
+        elif self.parent.attributes['type'] == 'outlined':
+            background_color = colors(theme, 'background')
+        color = colors(theme, 'on_surface')
+
         self.axes.spines['top'].set_visible(False)
         self.axes.spines['right'].set_visible(False)
         self.axes.spines['bottom'].set_visible(False)
         self.axes.spines['left'].set_visible(False)
-        if theme:
-            self.fig.set_facecolor(f'{light["surface"]}')
-            self.axes.set_facecolor(f'{light["surface"]}')
-            self.axes.xaxis.label.set_color(f'{light["on_surface"]}')
-            self.axes.yaxis.label.set_color(f'{light["on_surface"]}')
-            self.axes.tick_params(axis='both', colors=f'{light["on_surface"]}', labelsize=8)
-        else:
-            self.fig.set_facecolor(f'{dark["surface"]}')
-            self.axes.set_facecolor(f'{dark["surface"]}')
-            self.axes.xaxis.label.set_color(f'{dark["on_surface"]}')
-            self.axes.yaxis.label.set_color(f'{dark["on_surface"]}')
-            self.axes.tick_params(axis='both', colors=f'{dark["on_surface"]}', labelsize=8)
-
-    def language_text(self, language: int) -> None:
-        """ Change language of switch text """
-        return 0
-
-
+        
+        self.fig.set_facecolor(f'{background_color}')
+        self.axes.set_facecolor(f'{background_color}')
+        self.axes.xaxis.label.set_color(f'{color}')
+        self.axes.yaxis.label.set_color(f'{color}')
+        self.axes.tick_params(axis='both', colors=f'{color}', labelsize=8)
