@@ -346,15 +346,16 @@ class UI(QWidget):
         
 
 
-        # # ---------------
-        # # Card Endomorphy
-        # # ---------------
-        # self.gui_widgets['endomorph_card'] = MD3Card(parent, { 
-        #     'name': 'endomorph_card',
-        #     'size': (208, 288), 
-        #     'theme': self.theme_value, 
-        #     'labels': ('Endomorfismo', 'Endomorphy'),
-        #     'language': self.language_value } )
+        # ---------------
+        # Card Endomorphy
+        # ---------------
+        self.gui_widgets['endomorph_card'] = MD3Card(parent, { 
+            'name': 'endomorph_card',
+            'size': (208, 288),
+            'type': 'filled',
+            'labels': ('Endomorfismo', 'Endomorphy'),
+            'theme': self.theme_value,
+            'language': self.language_value } )
 
         # self.gui_widgets['triceps_text'] = MD3TextField(self.gui_widgets['endomorph_card'], {
         #     'name': 'triceps_text',
