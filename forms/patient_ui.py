@@ -32,10 +32,10 @@ from components.md3_window import MD3Window
 import sys
 
 
-class Patient_UI(QtWidgets.QDialog):
+class PatientUI(QtWidgets.QDialog):
     def __init__(self, parent):
         """ UI Patient dialog class """
-        super(Patient_UI, self).__init__(parent)
+        super(PatientUI, self).__init__(parent)
         
         # --------
         # Settings
