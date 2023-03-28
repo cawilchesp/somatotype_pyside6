@@ -24,7 +24,7 @@ from PySide6.QtGui import QRegularExpressionValidator
 
 import sys
 
-from forms.patient_ui import Patient_UI
+from forms.patient_ui import PatientUI
 
 
 class PatientForm(QtWidgets.QDialog):
@@ -67,7 +67,7 @@ class PatientForm(QtWidgets.QDialog):
         # ----------------
         # Generación de UI
         # ----------------
-        self.patient_ui = Patient_UI(self)
+        self.patient_ui = PatientUI(self)
 
     # ---------
     # Funciones
