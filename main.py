@@ -213,13 +213,7 @@ class MainWindow(QMainWindow):
         self.ui.gui_widgets['somatotype_plot_card'].title.resize(width - 652, 32)
         self.ui.gui_widgets['somatotype_plot'].resize(self.ui.gui_widgets['somatotype_plot_card'].width()-16, self.ui.gui_widgets['somatotype_plot_card'].height()-56)
         
-        
-
-
-
-
-
-        # self.ui.gui_widgets['parameters_XT_card'].move(width - 216, 64)
+        self.ui.gui_widgets['endomorph_card'].move(width - 216, 64)
         # self.ui.gui_widgets['parameters_YT_card'].move(width - 216, 200)
         # self.ui.gui_widgets['parameters_XY_card'].move(width - 216, 336)
         # self.ui.gui_widgets['areas_card'].move(width - 216, 472)
