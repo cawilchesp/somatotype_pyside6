@@ -221,10 +221,8 @@ class MainWindow(QMainWindow):
         self.ui.gui_widgets['somatotype_plot'].resize(self.ui.gui_widgets['somatotype_plot_card'].width()-16, self.ui.gui_widgets['somatotype_plot_card'].height()-56)
         
         self.ui.gui_widgets['endomorph_card'].move(width - 216, 64)
-        self.ui.gui_widgets['mesomorph_card'].move(width - 216, 360)
-        # self.ui.gui_widgets['parameters_YT_card'].move(width - 216, 200)
-        # self.ui.gui_widgets['parameters_XY_card'].move(width - 216, 336)
-        # self.ui.gui_widgets['areas_card'].move(width - 216, 472)
+        self.ui.gui_widgets['mesomorph_card'].move(width - 216, 280)
+        self.ui.gui_widgets['ectomorph_card'].move(width - 216, 616)
 
         return super().resizeEvent(a0)
 
@@ -244,7 +242,7 @@ class MainWindow(QMainWindow):
 
 
     def on_analysis_delete_clicked(self) -> None:
-        """ Delete analysis button from the database """
+        """ Delete analysis button from the database """    
         return None
     
 
