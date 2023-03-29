@@ -1,19 +1,24 @@
 """
-Patient
+Analysis
 
-This file contains class Patient Dialog.
+This file contains class Analysis Dialog.
 
-To provide the patient information, it requires:
+To provide the analysis information, it requires:
 
-Image Filename
+triceps
+subescapular
+supraespinal
+pantorrilla
 
-Minimum and Maximum value of Left Foot XT Signal
-Minimum and Maximum value of Center Foot XT Signal
-Minimum and Maximum value of Right Foot XT Signal
+altura
+humero
+femur
+biceps
+tricipital
+pantorrilla_perimetro
+pantorrilla_pliegue
 
-Minimum and Maximum value of Left Foot YT Signal
-Minimum and Maximum value of Center Foot YT Signal
-Minimum and Maximum value of Right Foot YT Signal
+weight
 """
 
 from PySide6 import QtWidgets
@@ -37,24 +42,22 @@ class AnalysisForm(QtWidgets.QDialog):
         self.settings = QSettings(f'{sys.path[0]}/settings.ini', QSettings.Format.IniFormat)
         self.language_value = int(self.settings.value('language'))
         self.theme_value = eval(self.settings.value('theme'))
-        self.default_path = self.settings.value('default_path')
 
-        self.image_data = None
+        self.analysis_data = None
 
         self.form_fill_state = {
-            'filename_textfield': False,
-            'left_minimum_XT_text': False,
-            'left_maximum_XT_text': False,
-            'center_minimum_XT_text': False,
-            'center_maximum_XT_text': False,
-            'right_minimum_XT_text': False,
-            'right_maximum_XT_text': False,
-            'left_minimum_YT_text': False,
-            'left_maximum_YT_text': False,
-            'center_minimum_YT_text': False,
-            'center_maximum_YT_text': False,
-            'right_minimum_YT_text': False,
-            'right_maximum_YT_text': False
+            'triceps_text' : False,
+            'subescapular_text' : False,
+            'supraespinal_text' : False,
+            'pantorrilla_text' : False,
+            'altura_text' : False,
+            'humero_text' : False,
+            'femur_text' : False,
+            'biceps_text' : False,
+            'tricipital_text' : False,
+            'pantorrilla_perimetro_text' : False,
+            'pantorrilla_pliegue_text' : False,
+            'weight_textfield' : False
         }
 
         # ----------------
@@ -63,36 +66,25 @@ class AnalysisForm(QtWidgets.QDialog):
         self.analysis_ui = AnalysisUI(self)
 
 
-    def on_filename_button_clicked(self) -> None:
-        selected_file = QtWidgets.QFileDialog.getOpenFileName(None,
-                'Seleccione la imagen de datos', self.default_path,
-                'Archivos de Imágenes (*.png *.jpg *.bmp)')[0]
-
-        if selected_file:
-            self.default_path = self.settings.setValue('default_path', str(Path(selected_file).parent))
-            self.analysis_ui.image_widgets['filename_textfield'].text_field.setText(selected_file)
-
-
     def on_textEdited(self) -> None:
         self.enable_ok_button()
 
 
     def on_ok_button_clicked(self) -> None:
         """ Saving form values """
-        self.image_data = {
-            'image_filename': self.analysis_ui.image_widgets['filename_textfield'].text_field.text(),
-            'left_min_xt': self.analysis_ui.image_widgets['left_minimum_XT_text'].text_field.text(),
-            'left_max_xt': self.analysis_ui.image_widgets['left_maximum_XT_text'].text_field.text(),
-            'center_min_xt': self.analysis_ui.image_widgets['center_minimum_XT_text'].text_field.text(),
-            'center_max_xt': self.analysis_ui.image_widgets['center_maximum_XT_text'].text_field.text(),
-            'right_min_xt': self.analysis_ui.image_widgets['right_minimum_XT_text'].text_field.text(),
-            'right_max_xt': self.analysis_ui.image_widgets['right_maximum_XT_text'].text_field.text(),
-            'left_min_yt': self.analysis_ui.image_widgets['left_minimum_YT_text'].text_field.text(),
-            'left_max_yt': self.analysis_ui.image_widgets['left_maximum_YT_text'].text_field.text(),
-            'center_min_yt': self.analysis_ui.image_widgets['center_minimum_YT_text'].text_field.text(),
-            'center_max_yt': self.analysis_ui.image_widgets['center_maximum_YT_text'].text_field.text(),
-            'right_min_yt': self.analysis_ui.image_widgets['right_minimum_YT_text'].text_field.text(),
-            'right_max_yt': self.analysis_ui.image_widgets['right_maximum_YT_text'].text_field.text()
+        self.analysis_data = {
+            'triceps_text' : self.analysis_ui.analysis_widgets['triceps_text'].text_field.text(),
+            'subescapular_text' : self.analysis_ui.analysis_widgets['subescapular_text'].text_field.text(),
+            'supraespinal_text' : self.analysis_ui.analysis_widgets['supraespinal_text'].text_field.text(),
+            'pantorrilla_text' : self.analysis_ui.analysis_widgets['pantorrilla_text'].text_field.text(),
+            'altura_text' : self.analysis_ui.analysis_widgets['altura_text'].text_field.text(),
+            'humero_text' : self.analysis_ui.analysis_widgets['humero_text'].text_field.text(),
+            'femur_text' : self.analysis_ui.analysis_widgets['femur_text'].text_field.text(),
+            'biceps_text' : self.analysis_ui.analysis_widgets['biceps_text'].text_field.text(),
+            'tricipital_text' : self.analysis_ui.analysis_widgets['tricipital_text'].text_field.text(),
+            'pantorrilla_perimetro_text' : self.analysis_ui.analysis_widgets['pantorrilla_perimetro_text'].text_field.text(),
+            'pantorrilla_pliegue_text' : self.analysis_ui.analysis_widgets['pantorrilla_pliegue_text'].text_field.text(),
+            'weight_textfield' : self.analysis_ui.analysis_widgets['weight_textfield'].text_field.text()
         }
         self.close()
 
@@ -104,14 +96,14 @@ class AnalysisForm(QtWidgets.QDialog):
     
     def enable_ok_button(self) -> bool:
         """ Enable OK button if all form spaces are filled """
-        for key in self.analysis_ui.image_widgets.keys():
-            if (isinstance(self.analysis_ui.image_widgets[key], MD3TextField)
-                    and self.analysis_ui.image_widgets[key].text_field.text() == ''):
+        for key in self.analysis_ui.analysis_widgets.keys():
+            if (isinstance(self.analysis_ui.analysis_widgets[key], MD3TextField)
+                    and self.analysis_ui.analysis_widgets[key].text_field.text() == ''):
                 self.form_fill_state[key] = False
             else: 
                 self.form_fill_state[key] = True
 
         if False in self.form_fill_state.values():
-            return self.analysis_ui.image_widgets['ok_button'].setEnabled(False)
+            return self.analysis_ui.analysis_widgets['ok_button'].setEnabled(False)
         else:
-            return self.analysis_ui.image_widgets['ok_button'].setEnabled(True)
+            return self.analysis_ui.analysis_widgets['ok_button'].setEnabled(True)
