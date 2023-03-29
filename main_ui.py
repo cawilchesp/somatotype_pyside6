@@ -397,15 +397,16 @@ class UI(QWidget):
         #     'language': self.language_value } )
         # # self.gui_widgets['pantorrilla_text'].text_field.textEdited.connect(parent.on_pantorrilla_text_textEdited)
 
-        # # ---------------
-        # # Card Mesomorphy
-        # # ---------------
-        # self.gui_widgets['mesomorph_card'] = MD3Card(parent, { 
-        #     'name': 'mesomorph_card',
-        #     'size': (208, 468), 
-        #     'theme': self.theme_value, 
-        #     'labels': ('Mesomorfismo', 'Mesomorphy'),
-        #     'language': self.language_value } )
+        # ---------------
+        # Card Mesomorphy
+        # ---------------
+        self.gui_widgets['mesomorph_card'] = MD3Card(parent, { 
+            'name': 'mesomorph_card',
+            'size': (208, 288),
+            'type': 'filled',
+            'labels': ('Mesomorfismo', 'Mesomorphy'),
+            'theme': self.theme_value, 
+            'language': self.language_value } )
 
         # self.gui_widgets['altura_meso_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
         #     'name': 'altura_meso_label',
