@@ -16,6 +16,7 @@ from main_ui import UI
 import backend
 
 from forms.patient import PatientForm
+from forms.analysis import AnalysisForm
 
 from dialogs.about_app import AboutApp
 
@@ -37,6 +38,7 @@ class MainWindow(QMainWindow):
         # Variables
         # ---------
         self.patient_data = None
+        self.somatotype_data = None
 
 
 
@@ -219,6 +221,7 @@ class MainWindow(QMainWindow):
         self.ui.gui_widgets['somatotype_plot'].resize(self.ui.gui_widgets['somatotype_plot_card'].width()-16, self.ui.gui_widgets['somatotype_plot_card'].height()-56)
         
         self.ui.gui_widgets['endomorph_card'].move(width - 216, 64)
+        self.ui.gui_widgets['mesomorph_card'].move(width - 216, 360)
         # self.ui.gui_widgets['parameters_YT_card'].move(width - 216, 200)
         # self.ui.gui_widgets['parameters_XY_card'].move(width - 216, 336)
         # self.ui.gui_widgets['areas_card'].move(width - 216, 472)
@@ -231,7 +234,13 @@ class MainWindow(QMainWindow):
     # ------------------
     def on_analysis_add_clicked(self) -> None:
         """ Add analysis button to the database """
-        return None
+        self.analysis_form = AnalysisForm()
+        self.analysis_form.exec()
+
+        if self.analysis_form.analysis_data:
+            self.somatotype_data = self.analysis_form.analysis_data
+
+
 
 
     def on_analysis_delete_clicked(self) -> None:
