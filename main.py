@@ -216,13 +216,13 @@ class MainWindow(QMainWindow):
         self.ui.gui_widgets['about_button'].move(width - 96, 8)
         self.ui.gui_widgets['about_qt_button'].move(width - 56, 8)
 
-        self.ui.gui_widgets['somatotype_plot_card'].setGeometry(196, 64, width - 420, height - 72)
+        self.ui.gui_widgets['somatotype_plot_card'].setGeometry(196, 64, width - 452, height - 72)
         self.ui.gui_widgets['somatotype_plot_card'].title.resize(width - 652, 32)
         self.ui.gui_widgets['somatotype_plot'].resize(self.ui.gui_widgets['somatotype_plot_card'].width()-16, self.ui.gui_widgets['somatotype_plot_card'].height()-56)
         
-        self.ui.gui_widgets['endomorph_card'].move(width - 216, 64)
-        self.ui.gui_widgets['mesomorph_card'].move(width - 216, 280)
-        self.ui.gui_widgets['ectomorph_card'].move(width - 216, 616)
+        self.ui.gui_widgets['endomorph_card'].move(width - 248, 64)
+        self.ui.gui_widgets['mesomorph_card'].move(width - 248, 280)
+        self.ui.gui_widgets['ectomorph_card'].move(width - 248, 616)
 
         return super().resizeEvent(a0)
 
@@ -259,34 +259,6 @@ class MainWindow(QMainWindow):
         None
         """
         return None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
