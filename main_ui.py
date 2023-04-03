@@ -349,7 +349,7 @@ class UI(QWidget):
         # ---------------
         self.gui_widgets['endomorph_card'] = MD3Card(parent, { 
             'name': 'endomorph_card',
-            'size': (240, 208),
+            'size': (360, 208),
             'type': 'filled',
             'labels': ('Endomorfismo', 'Endomorphy'),
             'theme': self.theme_value,
@@ -358,73 +358,73 @@ class UI(QWidget):
         self.gui_widgets['triceps_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
             'name': 'triceps_label',
             'position': (8, 56),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Tríceps (mm)', 'Triceps (mm)'),
+            'labels': ('Grosor del Pliegue Cutáneo del Tríceps (mm)', 'Triceps Skinfold Thickness (mm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
         self.gui_widgets['triceps_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
             'name': 'triceps_value',
-            'position': (152, 48),
+            'position': (272, 48),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
         
-        self.gui_widgets['subescapular_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'subescapular_label',
+        self.gui_widgets['subscapular_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'subscapular_label',
             'position': (8, 96),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Subescapular (mm)', 'Subescapular (mm)'),
+            'labels': ('Grosor del Pliegue Cutáneo Subescapular (mm)', 'Subscapular Skinfold Thickness (mm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['subescapular_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'subescapular_value',
-            'position': (152, 88),
+        self.gui_widgets['subscapular_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'subscapular_value',
+            'position': (272, 88),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )       
 
-        self.gui_widgets['supraespinal_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'supraespinal_label',
+        self.gui_widgets['supraspinale_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'supraspinale_label',
             'position': (8, 136),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Supraespinal (mm)', 'Supraespinal (mm)'),
+            'labels': ('Grosor del Pliegue Cutáneo Supraespinal (mm)', 'Supraspinale Skinfold Thickness (mm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['supraespinal_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'supraespinal_value',
-            'position': (152, 128),
+        self.gui_widgets['supraspinale_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'supraspinale_value',
+            'position': (272, 128),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
         
-        self.gui_widgets['pantorrilla_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'pantorrilla_label',
+        self.gui_widgets['height_endo_label'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'height_endo_label',
             'position': (8, 176),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Pantorrilla (mm)', 'Calf (mm)'),
+            'labels': ('Altura (cm)', 'Height (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['pantorrilla_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
-            'name': 'pantorrilla_value',
-            'position': (152, 168),
+        self.gui_widgets['height_endo_value'] = MD3Label(self.gui_widgets['endomorph_card'], {
+            'name': 'height_endo_value',
+            'position': (272, 168),
             'width': 80,
             'type': 'value',
             'align': 'center',
@@ -436,44 +436,63 @@ class UI(QWidget):
         # ---------------
         self.gui_widgets['mesomorph_card'] = MD3Card(parent, { 
             'name': 'mesomorph_card',
-            'size': (240, 328),
+            'size': (360, 328),
             'type': 'filled',
             'labels': ('Mesomorfismo', 'Mesomorphy'),
             'theme': self.theme_value, 
             'language': self.language_value } )
-
-        self.gui_widgets['altura_meso_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'altura_meso_label',
+        
+        self.gui_widgets['biceps_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'biceps_label',
             'position': (8, 56),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Altura (cm)', 'Height (cm)'),
+            'labels': ('Circunferencia del Bíceps (cm)', 'Biceps Girth (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['altura_meso_value_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'altura_meso_value_label',
-            'position': (152, 48),
+        self.gui_widgets['biceps_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'biceps_value',
+            'position': (272, 48),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
 
-        self.gui_widgets['humero_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'humero_label',
+        self.gui_widgets['forearm_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'forearm_label',
             'position': (8, 96),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Diámetro Húmero (cm)', 'Humerus Diameter (cm)'),
+            'labels': ('Circunferencia del Antebrazo (cm)', 'Forearm Girth (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['humero_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'humero_value',
-            'position': (152, 88),
+        self.gui_widgets['forearm_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'forearm_value',
+            'position': (272, 88),
+            'width': 80,
+            'type': 'value',
+            'align': 'center',
+            'border_color': '#81a1c1',
+            'theme': self.theme_value } )
+
+        self.gui_widgets['humerus_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'humerus_label',
+            'position': (8, 136),
+            'width': 256,
+            'type': 'subtitle',
+            'align': 'left',
+            'labels': ('Ancho del Húmero (cm)', 'Humeral Breadth (cm)'),
+            'theme': self.theme_value,
+            'language': self.language_value } )
+
+        self.gui_widgets['humerus_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'humerus_value',
+            'position': (272, 128),
             'width': 80,
             'type': 'value',
             'align': 'center',
@@ -482,93 +501,74 @@ class UI(QWidget):
 
         self.gui_widgets['femur_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
             'name': 'femur_label',
-            'position': (8, 136),
-            'width': 136,
+            'position': (8, 176),
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Diámetro Fémur (cm)', 'Femur Diameter (cm)'),
+            'labels': ('Ancho del Fémur (cm)', 'Femoral Breadth (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
         self.gui_widgets['femur_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
             'name': 'femur_value',
-            'position': (152, 128),
+            'position': (272, 168),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
 
-        self.gui_widgets['biceps_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'biceps_label',
-            'position': (8, 176),
-            'width': 136,
-            'type': 'subtitle',
-            'align': 'left',
-            'labels': ('Perímetro Bíceps (cm)', 'Biceps Perimeter (cm)'),
-            'theme': self.theme_value,
-            'language': self.language_value } )
-
-        self.gui_widgets['biceps_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'biceps_value',
-            'position': (152, 168),
-            'width': 80,
-            'type': 'value',
-            'align': 'center',
-            'border_color': '#81a1c1',
-            'theme': self.theme_value } )
-
-        self.gui_widgets['tricipital_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'tricipital_label',
+        self.gui_widgets['knee_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'knee_label',
             'position': (8, 216),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Pliegue Tricipital (cm)', 'Tricipital Fold (cm)'),
+            'labels': ('Ancho de la Rodilla (cm)', 'Knee Breadth (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['tricipital_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'tricipital_value',
-            'position': (152, 208),
+        self.gui_widgets['knee_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'knee_value',
+            'position': (272, 208),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
 
-        self.gui_widgets['pantorrilla_perimetro_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'pantorrilla_perimetro_label',
+        self.gui_widgets['height_meso_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'height_meso_label',
             'position': (8, 256),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Perímetro Pantorrilla (cm)', 'Calf Perimeter (cm)'),
+            'labels': ('Altura (cm)', 'Height (cm)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['pantorrilla_perimetro_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'pantorrilla_perimetro_value',
-            'position': (152, 248),
+        self.gui_widgets['height_meso_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'height_meso_value',
+            'position': (272, 248),
             'width': 80,
             'type': 'value',
             'align': 'center',
             'border_color': '#81a1c1',
             'theme': self.theme_value } )
 
-        self.gui_widgets['pantorrilla_pliegue_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'pantorrilla_pliegue_label',
+        self.gui_widgets['weight_meso_label'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'weight_meso_label',
             'position': (8, 296),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
-            'labels': ('Pliegue Pantorrilla (cm)', 'Calf Fold (cm)'),
+            'labels': ('Peso (Kg)', 'Weight (Kg)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['pantorrilla_pliegue_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
-            'name': 'pantorrilla_pliegue_value',
-            'position': (152, 288),
+        self.gui_widgets['weight_meso_value'] = MD3Label(self.gui_widgets['mesomorph_card'], {
+            'name': 'weight_meso_value',
+            'position': (272, 288),
             'width': 80,
             'type': 'value',
             'align': 'center',
@@ -580,25 +580,25 @@ class UI(QWidget):
         # ---------------
         self.gui_widgets['ectomorph_card'] = MD3Card(parent, { 
             'name': 'ectomorph_card',
-            'size': (240, 88),
+            'size': (360, 88),
             'type': 'filled',
             'labels': ('Ectomorfismo', 'Ectomorphy'),
             'theme': self.theme_value, 
             'language': self.language_value } )
 
-        self.gui_widgets['peso_ecto_label'] = MD3Label(self.gui_widgets['ectomorph_card'], {
-            'name': 'peso_ecto_label',
+        self.gui_widgets['weight_ecto_label'] = MD3Label(self.gui_widgets['ectomorph_card'], {
+            'name': 'weight_ecto_label',
             'position': (8, 56),
-            'width': 136,
+            'width': 256,
             'type': 'subtitle',
             'align': 'left',
             'labels': ('Peso (Kg)', 'Weight (Kg)'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.gui_widgets['peso_ecto_value_label'] = MD3Label(self.gui_widgets['ectomorph_card'], {
-            'name': 'peso_ecto_value_label',
-            'position': (152, 48),
+        self.gui_widgets['weight_ecto_value'] = MD3Label(self.gui_widgets['ectomorph_card'], {
+            'name': 'weight_ecto_value',
+            'position': (272, 48),
             'width': 80,
             'type': 'value',
             'align': 'center',
