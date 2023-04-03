@@ -46,18 +46,16 @@ class AnalysisForm(QtWidgets.QDialog):
         self.analysis_data = None
 
         self.form_fill_state = {
-            'triceps_text' : False,
-            'subescapular_text' : False,
-            'supraespinal_text' : False,
-            'pantorrilla_text' : False,
-            'altura_text' : False,
-            'humero_text' : False,
-            'femur_text' : False,
-            'biceps_text' : False,
-            'tricipital_text' : False,
-            'pantorrilla_perimetro_text' : False,
-            'pantorrilla_pliegue_text' : False,
-            'weight_textfield' : False
+            'height_textfield' : False,
+            'weight_textfield' : False,
+            'triceps_textfield' : False,
+            'subscapular_textfield' : False,
+            'supraspinale_textfield' : False,
+            'biceps_textfield' : False,
+            'forearm_textfield' : False,
+            'humerus_textfield' : False,
+            'femur_textfield' : False,
+            'knee_textfield' : False
         }
 
         # ----------------
@@ -73,18 +71,16 @@ class AnalysisForm(QtWidgets.QDialog):
     def on_ok_button_clicked(self) -> None:
         """ Saving form values """
         self.analysis_data = {
-            'triceps_text' : self.analysis_ui.analysis_widgets['triceps_text'].text_field.text(),
-            'subescapular_text' : self.analysis_ui.analysis_widgets['subescapular_text'].text_field.text(),
-            'supraespinal_text' : self.analysis_ui.analysis_widgets['supraespinal_text'].text_field.text(),
-            'pantorrilla_text' : self.analysis_ui.analysis_widgets['pantorrilla_text'].text_field.text(),
-            'altura_text' : self.analysis_ui.analysis_widgets['altura_text'].text_field.text(),
-            'humero_text' : self.analysis_ui.analysis_widgets['humero_text'].text_field.text(),
-            'femur_text' : self.analysis_ui.analysis_widgets['femur_text'].text_field.text(),
-            'biceps_text' : self.analysis_ui.analysis_widgets['biceps_text'].text_field.text(),
-            'tricipital_text' : self.analysis_ui.analysis_widgets['tricipital_text'].text_field.text(),
-            'pantorrilla_perimetro_text' : self.analysis_ui.analysis_widgets['pantorrilla_perimetro_text'].text_field.text(),
-            'pantorrilla_pliegue_text' : self.analysis_ui.analysis_widgets['pantorrilla_pliegue_text'].text_field.text(),
-            'weight_textfield' : self.analysis_ui.analysis_widgets['weight_textfield'].text_field.text()
+            'height_value': self.analysis_ui.analysis_widgets['height_textfield'].text_field.text(),
+            'weight_value': self.analysis_ui.analysis_widgets['weight_textfield'].text_field.text(),
+            'triceps_value': self.analysis_ui.analysis_widgets['triceps_textfield'].text_field.text(),
+            'subscapular_value': self.analysis_ui.analysis_widgets['subscapular_textfield'].text_field.text(),
+            'supraspinale_value': self.analysis_ui.analysis_widgets['supraspinale_textfield'].text_field.text(),
+            'biceps_value': self.analysis_ui.analysis_widgets['biceps_textfield'].text_field.text(),
+            'forearm_value': self.analysis_ui.analysis_widgets['forearm_textfield'].text_field.text(),
+            'humerus_value': self.analysis_ui.analysis_widgets['humerus_textfield'].text_field.text(),
+            'femur_value': self.analysis_ui.analysis_widgets['femur_textfield'].text_field.text(),
+            'knee_value': self.analysis_ui.analysis_widgets['knee_textfield'].text_field.text()
         }
         self.close()
 
