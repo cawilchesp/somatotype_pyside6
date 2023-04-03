@@ -216,13 +216,13 @@ class MainWindow(QMainWindow):
         self.ui.gui_widgets['about_button'].move(width - 96, 8)
         self.ui.gui_widgets['about_qt_button'].move(width - 56, 8)
 
-        self.ui.gui_widgets['somatotype_plot_card'].setGeometry(196, 64, width - 452, height - 72)
+        self.ui.gui_widgets['somatotype_plot_card'].setGeometry(196, 64, width - 572, height - 72)
         self.ui.gui_widgets['somatotype_plot_card'].title.resize(width - 652, 32)
         self.ui.gui_widgets['somatotype_plot'].resize(self.ui.gui_widgets['somatotype_plot_card'].width()-16, self.ui.gui_widgets['somatotype_plot_card'].height()-56)
         
-        self.ui.gui_widgets['endomorph_card'].move(width - 248, 64)
-        self.ui.gui_widgets['mesomorph_card'].move(width - 248, 280)
-        self.ui.gui_widgets['ectomorph_card'].move(width - 248, 616)
+        self.ui.gui_widgets['endomorph_card'].move(width - 368, 64)
+        self.ui.gui_widgets['mesomorph_card'].move(width - 368, 280)
+        self.ui.gui_widgets['ectomorph_card'].move(width - 368, 616)
 
         return super().resizeEvent(a0)
 
@@ -236,7 +236,28 @@ class MainWindow(QMainWindow):
         self.analysis_form.exec()
 
         if self.analysis_form.analysis_data:
-            self.somatotype_data = self.analysis_form.analysis_data
+
+            
+
+
+
+
+            # --------------------------
+            # Presentación de resultados
+            # --------------------------
+            self.ui.gui_widgets['triceps_value'].setText(f'{self.analysis_form.analysis_data["triceps_value"]}')
+            self.ui.gui_widgets['subscapular_value'].setText(f'{self.analysis_form.analysis_data["subscapular_value"]}')
+            self.ui.gui_widgets['supraspinale_value'].setText(f'{self.analysis_form.analysis_data["supraspinale_value"]}')
+            self.ui.gui_widgets['height_endo_value'].setText(f'{self.analysis_form.analysis_data["height_value"]}')
+            self.ui.gui_widgets['biceps_value'].setText(f'{self.analysis_form.analysis_data["biceps_value"]}')
+            self.ui.gui_widgets['forearm_value'].setText(f'{self.analysis_form.analysis_data["forearm_value"]}')
+            self.ui.gui_widgets['humerus_value'].setText(f'{self.analysis_form.analysis_data["humerus_value"]}')
+            self.ui.gui_widgets['femur_value'].setText(f'{self.analysis_form.analysis_data["femur_value"]}')
+            self.ui.gui_widgets['knee_value'].setText(f'{self.analysis_form.analysis_data["knee_value"]}')
+            self.ui.gui_widgets['height_meso_value'].setText(f'{self.analysis_form.analysis_data["height_value"]}')
+            self.ui.gui_widgets['weight_meso_value'].setText(f'{self.analysis_form.analysis_data["weight_value"]}')
+            self.ui.gui_widgets['weight_ecto_value'].setText(f'{self.analysis_form.analysis_data["weight_value"]}')
+            
 
 
 
