@@ -38,7 +38,6 @@ class MainWindow(QMainWindow):
         # Variables
         # ---------
         self.patient_data = None
-        self.somatotype_data = None
 
 
 
@@ -236,12 +235,12 @@ class MainWindow(QMainWindow):
         self.analysis_form.exec()
 
         if self.analysis_form.analysis_data:
+            somatotype_scores = backend.somatotype_calculation(self.analysis_form.analysis_data)
 
+            print(somatotype_scores['endomorphy'])
+            print(somatotype_scores['mesomorphy'])
+            print(somatotype_scores['ectomorphy'])
             
-
-
-
-
             # --------------------------
             # Presentación de resultados
             # --------------------------
