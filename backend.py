@@ -19,7 +19,7 @@ def somatotype_calculation(measurements: dict) -> dict:
     Parameters
     ----------
     measurements: dict
-        anthropometric measurements
+        anthropometric measurements:
         height (cm)
         weight (Kg)
         triceps (mm)
@@ -34,22 +34,22 @@ def somatotype_calculation(measurements: dict) -> dict:
     Returns
     -------
     results: dict
-        Results of measurements analysis
+        Results of measurements analysis:
         endomorphy score
         mesomorphy score
         ectomorphy score
         
     """
-    height = measurements['height_textfield']
-    weight = measurements['weight_textfield']
-    triceps = measurements['triceps_textfield']
-    subscapular = measurements['subscapular_textfield']
-    supraspinale = measurements['supraspinale_textfield']
-    biceps = measurements['biceps_textfield']
-    forearm = measurements['forearm_textfield']
-    humerus = measurements['humerus_textfield']
-    femur = measurements['femur_textfield']
-    knee = measurements['knee_textfield']
+    height = int(measurements['height_value'])
+    weight = int(measurements['weight_value'])
+    triceps = int(measurements['triceps_value'])
+    subscapular = int(measurements['subscapular_value'])
+    supraspinale = int(measurements['supraspinale_value'])
+    biceps = int(measurements['biceps_value'])
+    forearm = int(measurements['forearm_value'])
+    humerus = int(measurements['humerus_value'])
+    femur = int(measurements['femur_value'])
+    knee = int(measurements['knee_value'])
 
     endomorphy = 0.143 * (triceps + subscapular + supraspinale) - 0.436 * (height) + 28.57
     mesomorphy = 0.858 * (biceps + forearm) + 0.601 * (humerus + femur) - 0.064 * (height) + 0.04 * (weight) + 3.64
