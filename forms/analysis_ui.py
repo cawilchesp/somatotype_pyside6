@@ -51,7 +51,7 @@ class AnalysisUI(QtWidgets.QDialog):
         # -------------
         # Dialog Window
         # -------------
-        (width, height) = (650, 476)
+        (width, height) = (975, 476)
         self.analysis_widgets['image_window'] = MD3Window( {
             'parent': parent, 
             'size': (width, height),
@@ -94,118 +94,118 @@ class AnalysisUI(QtWidgets.QDialog):
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        # ---------------
-        # Card Endomorphy
-        # ---------------
-        self.analysis_widgets['endomorph_card'] = MD3Card(parent, { 
-            'name': 'endomorph_card',
-            'position': (8, 184),
+        # --------------
+        # Card Skinfolds
+        # --------------
+        self.analysis_widgets['skinfolds_card'] = MD3Card(parent, { 
+            'name': 'skinfolds_card',
+            'position': (8, 244),
             'size': ((width / 2) - 12, 228), 
             'type': 'filled',
-            'labels': ('Endomorfismo', 'Endomorphy'),
+            'labels': ('Pliegues Cutáneos', 'Skinfolds'),
             'theme': self.theme_value,
             'language': self.language_value } )
 
-        self.analysis_widgets['triceps_textfield'] = MD3TextField(self.analysis_widgets['endomorph_card'], {
+        self.analysis_widgets['triceps_textfield'] = MD3TextField(self.analysis_widgets['skinfolds_card'], {
             'name': 'triceps_textfield',
             'position': (8, 48),
-            'width': self.analysis_widgets['endomorph_card'].width() - 16,
-            'labels': ('Grosor del Pliegue Cutáneo del Tríceps (mm)', 'Triceps Skinfold Thickness (mm)'),
+            'width': self.analysis_widgets['skinfolds_card'].width() - 16,
+            'labels': ('Tríceps (mm)', 'Triceps (mm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['subscapular_textfield'] = MD3TextField(self.analysis_widgets['endomorph_card'], {
+        self.analysis_widgets['subscapular_textfield'] = MD3TextField(self.analysis_widgets['skinfolds_card'], {
             'name': 'subscapular_textfield',
             'position': (8, 108),
-            'width': self.analysis_widgets['endomorph_card'].width() - 16,
-            'labels': ('Grosor del Pliegue Cutáneo Subescapular (mm)', 'Subscapular Skinfold Thickness (mm)'),
+            'width': self.analysis_widgets['skinfolds_card'].width() - 16,
+            'labels': ('Subescapular (mm)', 'Subscapular (mm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['supraspinale_textfield'] = MD3TextField(self.analysis_widgets['endomorph_card'], {
+        self.analysis_widgets['supraspinale_textfield'] = MD3TextField(self.analysis_widgets['skinfolds_card'], {
             'name': 'supraspinale_textfield',
             'position': (8, 168),
-            'width': self.analysis_widgets['endomorph_card'].width() - 16,
-            'labels': ('Grosor del Pliegue Cutáneo Supraespinal (mm)', 'Supraspinale Skinfold Thickness (mm)'),
+            'width': self.analysis_widgets['skinfolds_card'].width() - 16,
+            'labels': ('Supraespinal (mm)', 'Supraspinale (mm)'),
+            'type': 'integer',
+            'size': 2,
+            'theme': self.theme_value,
+            'language': self.language_value,
+            'text_edited': parent.on_textEdited } )
+        
+        self.analysis_widgets['calf_fold_textfield'] = MD3TextField(self.analysis_widgets['skinfolds_card'], {
+            'name': 'calf_fold_textfield',
+            'position': (8, 228),
+            'width': self.analysis_widgets['skinfolds_card'].width() - 16,
+            'labels': ('Pantorrilla (mm)', 'Calf (mm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        # ---------------
-        # Card Mesomorphy
-        # ---------------
-        self.analysis_widgets['mesomorph_card'] = MD3Card(parent, { 
-            'name': 'mesomorph_card',
+        # --------------------
+        # Card Girths/Breadths
+        # --------------------
+        self.analysis_widgets['girths_card'] = MD3Card(parent, { 
+            'name': 'girths_card',
             'position': ((width / 2) + 4, 8),
-            'size': ((width / 2) - 12, 348),
+            'size': ((width / 2) - 12, 288),
             'type': 'filled',
-            'labels': ('Mesomorfismo', 'Mesomorphy'),
+            'labels': ('Circunferencias/Anchos', 'Girths/Breadths'),
             'theme': self.theme_value, 
             'language': self.language_value } )
         
-        self.analysis_widgets['biceps_textfield'] = MD3TextField(self.analysis_widgets['mesomorph_card'], {
+        self.analysis_widgets['biceps_textfield'] = MD3TextField(self.analysis_widgets['girths_card'], {
             'name': 'biceps_textfield',
             'position': (8, 48),
-            'width': self.analysis_widgets['mesomorph_card'].width() - 16,
-            'labels': ('Circunferencia del Bíceps (cm)', 'Biceps Girth (cm)'),
+            'width': self.analysis_widgets['girths_card'].width() - 16,
+            'labels': ('Bíceps (cm)', 'Biceps (cm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['forearm_textfield'] = MD3TextField(self.analysis_widgets['mesomorph_card'], {
-            'name': 'forearm_textfield',
+        self.analysis_widgets['calf_textfield'] = MD3TextField(self.analysis_widgets['girths_card'], {
+            'name': 'calf_textfield',
             'position': (8, 108),
-            'width': self.analysis_widgets['mesomorph_card'].width() - 16,
-            'labels': ('Circunferencia del Antebrazo (cm)', 'Forearm Girth (cm)'),
+            'width': self.analysis_widgets['girths_card'].width() - 16,
+            'labels': ('Pantorrilla (cm)', 'Calf (cm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['humerus_textfield'] = MD3TextField(self.analysis_widgets['mesomorph_card'], {
+        self.analysis_widgets['humerus_textfield'] = MD3TextField(self.analysis_widgets['girths_card'], {
             'name': 'humerus_textfield',
             'position': (8, 168),
-            'width': self.analysis_widgets['mesomorph_card'].width() - 16,
-            'labels': ('Ancho del Húmero (cm)', 'Humeral Breadth (cm)'),
+            'width': self.analysis_widgets['girths_card'].width() - 16,
+            'labels': ('Húmero (cm)', 'Humeral (cm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['femur_textfield'] = MD3TextField(self.analysis_widgets['mesomorph_card'], {
+        self.analysis_widgets['femur_textfield'] = MD3TextField(self.analysis_widgets['girths_card'], {
             'name': 'femur_textfield',
             'position': (8, 228),
-            'width': self.analysis_widgets['mesomorph_card'].width() - 16,
-            'labels': ('Ancho del Fémur (cm)', 'Femoral Breadth (cm)'),
+            'width': self.analysis_widgets['girths_card'].width() - 16,
+            'labels': ('Fémur (cm)', 'Femoral (cm)'),
             'type': 'integer',
             'size': 2,
             'theme': self.theme_value,
             'language': self.language_value,
             'text_edited': parent.on_textEdited } )
 
-        self.analysis_widgets['knee_textfield'] = MD3TextField(self.analysis_widgets['mesomorph_card'], {
-            'name': 'knee_textfield',
-            'position': (8, 288),
-            'width': self.analysis_widgets['mesomorph_card'].width() - 16,
-            'labels': ('Ancho de la Rodilla (cm)', 'Knee Breadth (cm)'),
-            'type': 'integer',
-            'size': 2,
-            'theme': self.theme_value,
-            'language': self.language_value,
-            'text_edited': parent.on_textEdited } )
-        
         # --------------------------
         # Card Buttons Ok and Cancel
         # --------------------------
