@@ -5,20 +5,17 @@ This file contains class Analysis Dialog.
 
 To provide the analysis information, it requires:
 
-triceps
-subescapular
-supraespinal
-pantorrilla
-
-altura
-humero
-femur
-biceps
-tricipital
-pantorrilla_perimetro
-pantorrilla_pliegue
-
-weight
+anthropometric measurements:
+height (cm)
+weight (Kg)
+triceps skinfold (mm)
+subscapular skinfold (mm)
+supraspinale skinfold (mm)
+calf skinfold (cm)
+biceps (cm)
+calf (cm)
+humerus (cm)
+femur (cm)
 """
 
 from PySide6 import QtWidgets
@@ -51,11 +48,11 @@ class AnalysisForm(QtWidgets.QDialog):
             'triceps_textfield' : False,
             'subscapular_textfield' : False,
             'supraspinale_textfield' : False,
+            'calf_fold_textfield' : False,
             'biceps_textfield' : False,
-            'forearm_textfield' : False,
+            'calf_textfield' : False,
             'humerus_textfield' : False,
-            'femur_textfield' : False,
-            'knee_textfield' : False
+            'femur_textfield' : False
         }
 
         # ----------------
@@ -76,11 +73,11 @@ class AnalysisForm(QtWidgets.QDialog):
             'triceps_value': self.analysis_ui.analysis_widgets['triceps_textfield'].text_field.text(),
             'subscapular_value': self.analysis_ui.analysis_widgets['subscapular_textfield'].text_field.text(),
             'supraspinale_value': self.analysis_ui.analysis_widgets['supraspinale_textfield'].text_field.text(),
+            'calf_fold_value': self.analysis_ui.analysis_widgets['calf_fold_textfield'].text_field.text(),
             'biceps_value': self.analysis_ui.analysis_widgets['biceps_textfield'].text_field.text(),
-            'forearm_value': self.analysis_ui.analysis_widgets['forearm_textfield'].text_field.text(),
+            'calf_value': self.analysis_ui.analysis_widgets['calf_textfield'].text_field.text(),
             'humerus_value': self.analysis_ui.analysis_widgets['humerus_textfield'].text_field.text(),
-            'femur_value': self.analysis_ui.analysis_widgets['femur_textfield'].text_field.text(),
-            'knee_value': self.analysis_ui.analysis_widgets['knee_textfield'].text_field.text()
+            'femur_value': self.analysis_ui.analysis_widgets['femur_textfield'].text_field.text()
         }
         self.close()
 
